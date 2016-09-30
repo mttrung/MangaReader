@@ -6,7 +6,7 @@
 
 
 <body ng-controller='HomeController'>
-  <div class="list_manga" style="width: 70%">
+  <div style="float: left;width: 60%;" class="list_manga" style="width: 70%">
     <div style="margin: 10px 10px 10px 10px;" class="well" ng-repeat="manga in listManga">
       <div class="last_update" ng-bind="manga.lastUpdate" style="float:right"></div>
       <div class="manga_image" style="display: inline-block;vertical-align:top">
@@ -23,12 +23,42 @@
 
         </div>
         <div class="manga_chapters" ng-repeat="chapter in manga.listChapter">
-          <a href="#{{chapter.chapterLink}}" ng-click="clickManga(manga.mangaKLink,manga.title,chapter.chapterLink,chapter.chapterText)" ng-bind="chapter.chapterText+' '">
+          <a href="#{{chapter.chapterLink}}" ng-click="clickManga(manga.mangaKLink,manga.title,chapter.chapterLink,chapter.chapterText)"
+            ng-bind="chapter.chapterText+' '">
           </a><span class="label label-success" ng-bind="chapter.chapterNote"></span>
         </div>
       </div>
     </div>
   </div>
+
+  <div style="display: flex; height:auto">
+    <div style="margin: 10px 10px 10px 10px;" class="well">
+      <div class="input-group stylish-input-group">
+        <input type="text" class="form-control" ng-model="searchText" ng-change="search()" placeholder="Search manga">
+        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+        </span>
+      </div>
+      <div ng-style="resultStyle">
+        <div class="search_result well" style="padding: 0px 0px 0px 0px">
+          <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" ng-repeat="result in searchResult">
+              <a href="#{{result.link}}" ng-click="clickManga(result.link,result.title)">
+                <div style="float: left;width:15%"><img id="imageResult" style="max-width:95%;max-height:95%" ng-src="{{result.img}}"></div>
+                <div ng-bind="result.title"></div>
+                <div style="clear: both;height: 1px; overflow: hidden;font-size: 0pt;margin-top: -1px;"></div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="clear: both;
+  height: 1px;
+  overflow: hidden;
+  font-size: 0pt;
+  margin-top: -1px;"></div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
@@ -42,7 +72,6 @@
     margin-top: 10px;
     width: 100%;
   }
-  
 </style>
 
 </html>
