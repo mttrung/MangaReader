@@ -1,0 +1,48 @@
+<html ng-app="MangakReader">
+
+<head>
+  <title>MangaK Reader</title>
+</head>
+
+
+<body ng-controller='HomeController'>
+  <div class="list_manga" style="width: 70%">
+    <div style="margin: 10px 10px 10px 10px;" class="well" ng-repeat="manga in listManga">
+      <div class="last_update" ng-bind="manga.lastUpdate" style="float:right"></div>
+      <div class="manga_image" style="display: inline-block;vertical-align:top">
+        <a href="#{{manga.link}}" ng-click="clickManga(manga.mangaKLink,manga.title)">
+          <img ng-src="{{manga.imageLink}}" />
+        </a>
+      </div>
+
+      <div style="display: inline-block">
+        <div class="manga_title" style="vertical-align:top">
+          <h3 style="margin-top: 0px;">
+            <a href="#{{manga.link}}" ng-click="clickManga(manga.mangaKLink,manga.title)" ng-bind="manga.title"></a>
+          </h3>
+
+        </div>
+        <div class="manga_chapters" ng-repeat="chapter in manga.listChapter">
+          <a href="#{{chapter.chapterLink}}" ng-click="clickManga(manga.mangaKLink,manga.title,chapter.chapterLink,chapter.chapterText)" ng-bind="chapter.chapterText+' '">
+          </a><span class="label label-success" ng-bind="chapter.chapterNote"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.4.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/home.js"></script>
+</body>
+<style>
+  .modal-dialog {
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+</style>
+
+</html>
