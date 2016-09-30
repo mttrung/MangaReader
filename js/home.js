@@ -832,7 +832,6 @@ MangakReader.controller('HomeController', ['$scope', '$resource', '$uibModal', f
                 // }
             }
             $scope.resultStyle = { 'padding': "0px 0px 0px 0px" }
-            console.log($scope.searchResult)
         }
         else {
             $scope.resultStyle = { 'padding': "0px 0px 0px 0px", 'display': 'none' }
