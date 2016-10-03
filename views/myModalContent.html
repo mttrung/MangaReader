@@ -7,7 +7,7 @@
 </div>
 <div>
     <div ng-style="imageListStyle">
-        <div class="well well-sm" style="display: inline-block" ng-repeat="img in listImage">
+        <div class="well well-sm" style="display: block" ng-repeat="img in listImage">
             <img imageonload="finishedLoad($event)" ng-style="imageStyle" ng-src="{{img}}" >
         </div>
     </div>

@@ -12,6 +12,9 @@ MangakReader.directive('imageonload', ['$parse', function ($parse) {
             });
             element.bind('error', function () {
                 alert("There are some images that cant be loaded.")
+                scope.$apply(function () {
+                    fn(scope, { $event: event });
+                });
             });
         }
     };
@@ -22,7 +25,9 @@ MangakReader.controller('HomeController', ['$scope', '$resource', '$uibModal', f
     $scope.searchResult = [];
     $scope.resultStyle = { 'padding': "0px 0px 0px 0px", 'display': "none" }
     var newManga = $resource('/api/getNewManga');
+    console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Request getNewManga")
     newManga.query(function (result) {
+        console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Receive getNewManga")
         $scope.myHTML = result[0];
         var parser = new DOMParser(),
             doc = parser.parseFromString($scope.myHTML, "text/xml");
@@ -96,7 +101,9 @@ MangakReader.controller('HomeController', ['$scope', '$resource', '$uibModal', f
         });
     };
     var searchData = $resource('/api/getSearchData');
+    console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Request getSearchData")
     searchData.query().$promise.then(function (result) {
+    console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Receive getSearchData")
         $scope.searchData = JSON.parse(result[0]);
     });
     $scope.search = function () {
@@ -826,7 +833,7 @@ MangakReader.controller('HomeController', ['$scope', '$resource', '$uibModal', f
                 }
             });
             if ($scope.searchResult.length == 0) {
-                $scope.searchResult.push({ title: "No result", img:""});
+                $scope.searchResult.push({ title: "No result", img: "" });
                 // document.getElementById("imageResult").onerror = function () {
                 //     this.style.display = "none";
                 // }
@@ -844,9 +851,8 @@ MangakReader.controller('HomeController', ['$scope', '$resource', '$uibModal', f
 
 MangakReader.controller('ModalInstanceCtrl', ['$scope', '$resource', '$http', 'link', 'title', 'chapter', 'chapterText', function ($scope, $resource, $http, link, title, chapter, chapterText) {
     link = link.replace("http://mangak.info", "");
-    if(link.charAt(0)!='/')
-    {
-        link = '/'+link;
+    if (link.charAt(0) != '/') {
+        link = '/' + link;
     }
     var mangaChapters = $resource('/api/getChapters' + link);
 
@@ -858,7 +864,9 @@ MangakReader.controller('ModalInstanceCtrl', ['$scope', '$resource', '$http', 'l
     $scope.chapterTitle = title;
     $scope.numberImage = 0;
     $scope.imageStyle = { "max-width": "100%", "max-height": "100%" };
+    console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Request getChapters")
     mangaChapters.query(function (result) {
+        console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Recieve getChapters")
         $scope.chapterHTML = result[0];
         var parser = new DOMParser(),
             doc = parser.parseFromString($scope.chapterHTML, "text/xml");
@@ -888,8 +896,10 @@ MangakReader.controller('ModalInstanceCtrl', ['$scope', '$resource', '$http', 'l
         $scope.listImage = [];
         link = link.replace("http://mangak.info", "");
         var chapterContent = $resource('/api/getChapterContent' + link);
+        console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Request getChapterContent")
         chapterContent.query(function (result) {
-            $scope.contentHTML = result[0];
+            console.log((new Date()).toTimeString().substring(0, (new Date()).toTimeString().indexOf("GMT") - 1) + " - Receive getChapterContent")
+            $scope.contentHTML = result[0].replace(/&/g, '&amp;');
             var parser = new DOMParser(),
                 doc = parser.parseFromString($scope.contentHTML, "text/xml");
             var content = doc.getElementsByTagName("img");
