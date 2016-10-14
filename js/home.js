@@ -41,6 +41,7 @@ MangakReader.directive('scroll', function ($window) {
                             console.log("next chap ", scope.listChapter[index - 1])
                             if (confirm("Continue " + scope.listChapter[index - 1].title + "?")) {
                                 scope.chapterClick(scope.listChapter[index - 1].link, scope.listChapter[index - 1].title)
+                                return;
                             } else if (scope.displayChapterListButtonStyle["left"] == "0%") {
                                 scope.displayChapterList();
                                 $(this).scrollTop($(this).scrollTop() - 1);
