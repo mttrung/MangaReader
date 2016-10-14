@@ -36,21 +36,22 @@ MangakReader.directive('scroll', function ($window) {
                     $(this).scrollTop() + $(this).height() >= $(this)[0].scrollHeight - 1 &&
                     scope.listImage.length == scope.numberImage) {
 
-                    scope.listChapter.forEach(function (val, index) {
+                    for (var index in scope.listChapter) {
+                        val = scope.listChapter[index];
                         if (val.link.replace("http://mangak.info", "").replace(/\//g, "") == curChap && index != 0) {
                             console.log("next chap ", scope.listChapter[index - 1])
                             if (confirm("Continue " + scope.listChapter[index - 1].title + "?")) {
                                 scope.chapterClick(scope.listChapter[index - 1].link, scope.listChapter[index - 1].title)
-                                return;
+                                break;
                             } else if (scope.displayChapterListButtonStyle["left"] == "0%") {
                                 scope.displayChapterList();
                                 $(this).scrollTop($(this).scrollTop() - 1);
                             }
-                        } else if (scope.displayChapterListButtonStyle["left"] == "0%") {
+                        } else if (scope.displayChapterListButtonStyle["left"] == "0%" && val.link.replace("http://mangak.info", "").replace(/\//g, "") == curChap && index == 0) {
                             scope.displayChapterList();
                             $(this).scrollTop($(this).scrollTop() - 1);
                         }
-                    });
+                    }
                 }
                 scope.$apply();
             });
