@@ -28,28 +28,29 @@ MangakReader.directive('scroll', function ($window) {
     return {
         restrict: 'AE',
         link: function (scope, element, attrs) {
-            console.log(scope, element, attrs)
             angular.element(element[0]).bind("scroll", function () {
                 var curChap = scope.curChap.replace("http://mangak.info", "").replace(/\//g, "");
-                console.log(curChap)
                 if ($(this).scrollTop() + $(this).height() <= $(this)[0].scrollHeight + 1 &&
                     $(this).scrollTop() + $(this).height() >= $(this)[0].scrollHeight - 1 &&
                     scope.listImage.length == scope.numberImage) {
 
                     for (var index in scope.listChapter) {
                         val = scope.listChapter[index];
-                        if (val.link.replace("http://mangak.info", "").replace(/\//g, "") == curChap && index != 0) {
-                            console.log("next chap ", scope.listChapter[index - 1])
+                        if (scope.displayChapterListButtonStyle["left"] == "0%" &&  val.link.replace("http://mangak.info", "").replace(/\//g, "") == curChap && index != 0) {
                             if (confirm("Continue " + scope.listChapter[index - 1].title + "?")) {
                                 scope.chapterClick(scope.listChapter[index - 1].link, scope.listChapter[index - 1].title)
                                 break;
                             } else if (scope.displayChapterListButtonStyle["left"] == "0%") {
                                 scope.displayChapterList();
-                                $(this).scrollTop($(this).scrollTop() - 1);
+                                console.log($(this).scrollTop());
+                                $(this).scrollTop($(this)[0].scrollHeight - $(this).height() - 100);
+                                console.log($(this).scrollTop());
+                            } else {
+                                $(this).scrollTop($(this)[0].scrollHeight - $(this).height() - 10);
                             }
                         } else if (scope.displayChapterListButtonStyle["left"] == "0%" && val.link.replace("http://mangak.info", "").replace(/\//g, "") == curChap && index == 0) {
                             scope.displayChapterList();
-                            $(this).scrollTop($(this).scrollTop() - 1);
+                            $(this).scrollTop($(this)[0].scrollHeight - $(this).height() - 1);
                         }
                     }
                 }
