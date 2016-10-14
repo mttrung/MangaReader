@@ -1,23 +1,25 @@
-<div style="float: left;width: 150px;" class="listChapter">
-    <div ng-style="chapterListStyle">
-        <div class="well well-sm chapter" style="margin: 10px 5px 5px 10px" ng-repeat="chapter in listChapter">
-            <button type="button" class="btn btn-default" ng-click="chapterClick(chapter.mangaKLink,chapter.title)" ng-bind="chapter.shortTitle"></button>
-        </div>
-    </div>
-</div>
 <div>
-    <div ng-style="imageListStyle">
-        <div class="well well-sm" style="display: block" ng-repeat="img in listImage">
-            <img imageonload="finishedLoad($event)" ng-style="imageStyle" ng-src="{{img}}" >
-        </div>
-    </div>
+	<div style="float: left;width: 150px;" class="listChapter">
+		<div ng-style="chapterListStyle">
+			<div class="well well-sm chapter" style="margin: 10px 5px 5px 10px" ng-repeat="chapter in listChapter">
+				<button type="button" class="btn btn-default" ng-click="chapterClick(chapter.mangaKLink,chapter.title)" ng-bind="chapter.shortTitle"></button>
+			</div>
+		</div>
+	</div>
+	<div>
+		<div ng-style="imageListStyle"  scroll>
+            <button type="button" class="btn btn-default" ng-style="displayChapterListButtonStyle" ng-bind="displayChapterListButton" ng-click="displayChapterList()"></button>
+			<div class="well well-sm" style="display: block;background:gray" ng-repeat="img in listImage">
+				<img imageonload="finishedLoad($event)" ng-style="imageStyle" ng-src="{{img}}">
+			</div>
+		</div>
+	</div>
+	<div ng-style="bottomBarStyle">
+		<b>{{chapterTitle}}</b>
+		<button type="button" class="btn btn-default" ng-click="resizeImage(100)">100%</button>
+		<button type="button" class="btn btn-default" ng-click="resizeImage(90)">90%</button>
+		<button type="button" class="btn btn-default" ng-click="resizeImage(80)">80%</button>
+		<button type="button" class="btn btn-default" ng-click="resizeImage(70)">70%</button> Loaded: {{listImage.length}}/{{numberImage}}
+	</div>
+	<div style="clear: both;height: 1px;overflow: hidden;font-size: 0pt;margin-top: -1px;"></div>
 </div>
-<div style="margin:5px 5px 5px 5px">
-    <b>{{chapterTitle}}</b>
-    <button type="button" class="btn btn-default" ng-click="resizeImage(100)">100%</button>
-    <button type="button" class="btn btn-default" ng-click="resizeImage(90)">90%</button>
-    <button type="button" class="btn btn-default" ng-click="resizeImage(80)">80%</button>
-    <button type="button" class="btn btn-default" ng-click="resizeImage(70)">70%</button>
-    Loaded: {{listImage.length}}/{{numberImage}}
-</div>
-<div style="clear: both;height: 1px;overflow: hidden;font-size: 0pt;margin-top: -1px;"></div>
